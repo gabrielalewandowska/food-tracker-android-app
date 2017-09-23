@@ -26,17 +26,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
-                    DbContract.FeedAvailableFoods._ID + " INTEGER PRIMARY KEY," +
+                    DbContract.FeedAvailableFoods._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     DbContract.FeedAvailableFoods.COL1 + " TEXT," +
-                    DbContract.FeedAvailableFoods.COL2 + " FLOAT," +
-                    DbContract.FeedAvailableFoods.COL3 + " FLOAT," +
-                    DbContract.FeedAvailableFoods.COL4 + " FLOAT," +
-                    DbContract.FeedAvailableFoods.COL5 + " FLOAT);" +
+                    DbContract.FeedAvailableFoods.COL2 + " REAL," +
+                    DbContract.FeedAvailableFoods.COL3 + " REAL," +
+                    DbContract.FeedAvailableFoods.COL4 + " REAL," +
+                    DbContract.FeedAvailableFoods.COL5 + " REAL);" +
             "CREATE TABLE " + DbContract.FeedFoodHistory.TABLE_NAME + " (" +
-                    DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY," +
+                    DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     DbContract.FeedFoodHistory.COL1 + " INTEGER," +
                     DbContract.FeedFoodHistory.COL2 + " INTEGER REFERENCES available_foods(_id)," +
-                    DbContract.FeedFoodHistory.COL3 + " FLOAT)";
+                    DbContract.FeedFoodHistory.COL3 + " INTEGER)";
 
 
     private static final String SQL_DELETE_ENTRIES =
@@ -49,6 +49,24 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
     }
+
+//    @Override
+//    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+//        sqLiteDatabase.execSQL(
+//                "CREATE TABLE available_foods(" +
+//                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                        "name TEXT," +
+//                        "kcal INTEGER," +
+//                        "carbs REAL," +
+//                        "fat REAL," +
+//                        "protein REAL);" +
+//                        "CREATE TABLE food_history(" +
+//                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                        "date INTEGER," +
+//                        "food_id INTEGER REFERENCES available_foods(_id)," +
+//                        "quantity INTEGER);" +
+//        "");
+//    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -77,7 +95,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor returnAllAvailableFoods(){
-        String[] columns = {"name", "kcal", "carbohydrates", "fat", "protein"};
+        String[] columns = {"_id", "name", "kcal", "carbohydrates", "fat", "protein"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("available_foods", columns, null, null, null, null, null);
         return cursor;

@@ -11,6 +11,7 @@ public class DbContract {
 
     public static class FeedAvailableFoods implements BaseColumns {
         public static final String TABLE_NAME = "available_foods";
+        public static final String _ID = "id";
         public static final String COL1 = "name";
         public static final String COL2 = "kcal";
         public static final String COL3 = "carbohydrates";
@@ -21,6 +22,7 @@ public class DbContract {
 
     public static class FeedFoodHistory implements BaseColumns {
         public static final String TABLE_NAME = "food_history";
+        public static final String _ID = "id";
         public static final String COL1 = "date";
         public static final String COL2 = "food_id";
         public static final String COL3 = "quantity";
