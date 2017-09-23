@@ -2,6 +2,7 @@ package com.example.user.foodtracker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -73,5 +74,12 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(DbContract.FeedFoodHistory.COL2, food_id);
         values.put(DbContract.FeedFoodHistory.COL3, quantity);
         db.insertOrThrow("food_history", null, values);
+    }
+
+    public Cursor returnAllAvailableFoods(){
+        String[] columns = {"name", "kcal", "carbohydrates", "fat", "protein"};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("available_foods", columns, null, null, null, null, null);
+        return cursor;
     }
 }
