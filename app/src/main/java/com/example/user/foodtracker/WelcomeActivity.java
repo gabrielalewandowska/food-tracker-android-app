@@ -20,16 +20,19 @@ public class WelcomeActivity extends AppCompatActivity {
         db.addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
         tv.setText("");
 
-        Cursor k = db.returnAllAvailableFoods();
-        while(k.moveToNext()){
-            Integer id = k.getInt(0);
-            String name = k.getString(1);
-            Integer kcal = k.getInt(2);
-            Double carbs = k.getDouble(3);
-            Double fat = k.getDouble(4);
-            Double protein = k.getDouble(5);
-            tv.setText(tv.getText() + "\n" + id + " " + name + " " + kcal + " " + carbs +
-            " " + fat + " " + protein);
-        }
+        FoodItem foodItem = db.returnAllAvailableFoods();
+        tv.setText(foodItem.getName() + "kcal: " + foodItem.getKcal());
+
+//        Cursor k = db.returnAllAvailableFoods();
+//        while(k.moveToNext()){
+//            Integer id = k.getInt(0);
+//            String name = k.getString(1);
+//            Integer kcal = k.getInt(2);
+//            Double carbs = k.getDouble(3);
+//            Double fat = k.getDouble(4);
+//            Double protein = k.getDouble(5);
+//            tv.setText(tv.getText() + "\n" + id + " " + name + " " + kcal + " " + carbs +
+//            " " + fat + " " + protein);
+//        }
     }
 }

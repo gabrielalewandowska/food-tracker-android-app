@@ -51,23 +51,6 @@ public class DbHelper extends SQLiteOpenHelper {
         this.deleteAllFoodItems();
     }
 
-//    @Override
-//    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        sqLiteDatabase.execSQL(
-//                "CREATE TABLE available_foods(" +
-//                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-//                        "name TEXT," +
-//                        "kcal INTEGER," +
-//                        "carbs REAL," +
-//                        "fat REAL," +
-//                        "protein REAL);" +
-//                        "CREATE TABLE food_history(" +
-//                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-//                        "date INTEGER," +
-//                        "food_id INTEGER REFERENCES available_foods(_id)," +
-//                        "quantity INTEGER);" +
-//        "");
-//    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
@@ -95,11 +78,21 @@ public class DbHelper extends SQLiteOpenHelper {
         db.insertOrThrow(DbContract.FeedFoodHistory.TABLE_NAME, null, values);
     }
 
-    public Cursor returnAllAvailableFoods(){
+    public FoodItem returnAllAvailableFoods(){
+        FoodItem foodItem = new FoodItem();
         String[] columns = {"id", "name", "kcal", "carbohydrates", "fat", "protein"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DbContract.FeedAvailableFoods.TABLE_NAME, columns, null, null, null, null, null);
-        return cursor;
+        if (cursor != null){
+            cursor.moveToFirst();
+            foodItem.setId(cursor.getInt(0));
+            foodItem.setName(cursor.getString(1));
+            foodItem.setKcal(cursor.getInt(2));
+            foodItem.setCarbohydrates(cursor.getDouble(3));
+            foodItem.setFat(cursor.getDouble(4));
+            foodItem.setProtein(cursor.getDouble(5));
+        }
+        return foodItem;
     }
 
     public void deleteAllFoodItems(){
@@ -107,4 +100,35 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + DbContract.FeedAvailableFoods.TABLE_NAME);
         db.close();
     }
+
+
+//    public Cursor getNutrientValue(String name, String nutrient){
+//        SQLiteDatabase db = getReadableDatabase();
+//        String[] columns = {"name", nutrient};
+//        String selection = "name = ?";
+//        String[] selectionArgs = {name};
+//        Cursor cursor = db.query(
+//                DbContract.FeedAvailableFoods.TABLE_NAME,
+//                columns,
+//                selection,
+//                selectionArgs,
+//                null, null, null
+//        );
+//
+//        return cursor;
+//    }
+//
+//    public FoodItem findFoodItemByName(String name){
+//        SQLiteDatabase db = getReadableDatabase();
+//        FoodItem foodItem = new FoodItem(name);
+//        String[] columns = {DbContract.FeedAvailableFoods.COL1, DbContract.FeedAvailableFoods.COL2,
+//                DbContract.FeedAvailableFoods.COL3, DbContract.FeedAvailableFoods.COL4, DbContract.FeedAvailableFoods.COL5};
+//        String[] args = {name};
+//        Cursor cursor = db.query(DbContract.FeedAvailableFoods.TABLE_NAME, columns, "name = ? ", args, null, null, null, null);
+//        if(cursor != null){
+//            cursor.moveToFirst();
+//            foodItem.setNutrientsHashMap();
+//        }
+//
+//    }
 }
