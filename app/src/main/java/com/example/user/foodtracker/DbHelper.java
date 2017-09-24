@@ -49,9 +49,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
         this.deleteAllFoodItems();
-//        addNewFood("oats", 389, 66.3, 6.9, 16.9);
-//        addNewFood("bananas", 89, 22.8, 0.3, 1.1);
-//        addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
     }
 
 //    @Override
@@ -99,7 +96,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor returnAllAvailableFoods(){
-        String[] columns = {"_id", "name", "kcal", "carbohydrates", "fat", "protein"};
+        String[] columns = {"id", "name", "kcal", "carbohydrates", "fat", "protein"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(DbContract.FeedAvailableFoods.TABLE_NAME, columns, null, null, null, null, null);
         return cursor;

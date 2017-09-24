@@ -15,9 +15,9 @@ public class WelcomeActivity extends AppCompatActivity {
         TextView tv = (TextView) findViewById(R.id.textView);
         DbHelper db = new DbHelper(this);
         db.deleteAllFoodItems();
-//        db.addNewFood("oats", 389, 66.3, 6.9, 16.9);
-//        db.addNewFood("bananas", 89, 22.8, 0.3, 1.1);
-//        db.addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
+        db.addNewFood("oats", 389, 66.3, 6.9, 16.9);
+        db.addNewFood("bananas", 89, 22.8, 0.3, 1.1);
+        db.addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
         tv.setText("");
 
         Cursor k = db.returnAllAvailableFoods();
