@@ -48,6 +48,10 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        this.deleteAllFoodItems();
+//        addNewFood("oats", 389, 66.3, 6.9, 16.9);
+//        addNewFood("bananas", 89, 22.8, 0.3, 1.1);
+//        addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
     }
 
 //    @Override
@@ -82,7 +86,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(DbContract.FeedAvailableFoods.COL3, carbs);
         values.put(DbContract.FeedAvailableFoods.COL4, fat);
         values.put(DbContract.FeedAvailableFoods.COL5, protein);
-        db.insertOrThrow("available_foods", null, values);
+        db.insertOrThrow(DbContract.FeedAvailableFoods.TABLE_NAME, null, values);
     }
 
     public void addNewFoodHistory(Integer date, Integer food_id, Integer quantity){
@@ -91,13 +95,19 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(DbContract.FeedFoodHistory.COL1, date);
         values.put(DbContract.FeedFoodHistory.COL2, food_id);
         values.put(DbContract.FeedFoodHistory.COL3, quantity);
-        db.insertOrThrow("food_history", null, values);
+        db.insertOrThrow(DbContract.FeedFoodHistory.TABLE_NAME, null, values);
     }
 
     public Cursor returnAllAvailableFoods(){
         String[] columns = {"_id", "name", "kcal", "carbohydrates", "fat", "protein"};
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("available_foods", columns, null, null, null, null, null);
+        Cursor cursor = db.query(DbContract.FeedAvailableFoods.TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
+    }
+
+    public void deleteAllFoodItems(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + DbContract.FeedAvailableFoods.TABLE_NAME);
+        db.close();
     }
 }
