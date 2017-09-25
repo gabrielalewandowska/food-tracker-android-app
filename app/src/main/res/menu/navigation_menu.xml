@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_menu">
 
     <item android:id="@+id/nav_diary"
         android:title="Diary"
         android:icon="@mipmap/ic_create_black_24dp"/>
 
-    <item android:id="@+id/nav_add_food"
-        android:title="Add New Food"
-        android:icon="@mipmap/ic_note_add_black_24dp"/>
+    <item
+        android:id="@+id/nav_add_food"
+        android:icon="@mipmap/ic_note_add_black_24dp"
+        android:title="Add New Food" />
 
     <item android:id="@+id/nav_history"
         android:title="History"

@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddNewFoodActivity" />
-        <activity android:name=".ShowHistoryActivity"></activity>
+        <activity android:name=".ShowHistoryActivity" />
+        <activity android:name=".NavigationActivity"></activity>
     </application>
 
 </manifest>
