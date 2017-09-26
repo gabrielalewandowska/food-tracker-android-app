@@ -9,14 +9,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DiaryFragment extends Fragment {
+    Spinner spinner;
+
 
     String date;
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
@@ -35,8 +41,33 @@ public class DiaryFragment extends Fragment {
         TextView dateBox = (TextView) layout.findViewById(R.id.text_current_date);
         date = getCurrentDateAsString();
         dateBox.setText(date);
+
+        spinner = (Spinner) layout.findViewById(R.id.spinner);
+//        spinner.setOnItemClickListener();
+
+        loadSpinnerData();
+
         return layout;
 
+    }
+
+    private void loadSpinnerData() {
+        // database handler
+        DbHelper db = new DbHelper(getActivity().getApplicationContext());
+
+        // Spinner Drop down elements
+        List<String> foods = db.getAllFoodNames();
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                android.R.layout.simple_spinner_item, foods);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
     }
 
     public static String getCurrentDateAsString(){
