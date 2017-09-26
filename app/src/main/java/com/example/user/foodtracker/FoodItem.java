@@ -1,6 +1,11 @@
 package com.example.user.foodtracker;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by user on 24/09/2017.
@@ -78,4 +83,6 @@ public class FoodItem {
     public void setProtein(Double protein) {
         this.protein = protein;
     }
+
+
 }

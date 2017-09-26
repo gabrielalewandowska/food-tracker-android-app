@@ -32,6 +32,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        DbHelper db = new DbHelper(this);
+        db.deleteAllFoodItems();
+        db.addNewFood("oats", 389, 66.3, 6.9, 16.9);
+        db.addNewFood("bananas", 89, 22.8, 0.3, 1.1);
+        db.addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

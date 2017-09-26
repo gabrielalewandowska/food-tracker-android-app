@@ -7,6 +7,9 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by user on 22/09/2017.
  */
@@ -69,7 +72,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.insertOrThrow(DbContract.FeedAvailableFoods.TABLE_NAME, null, values);
     }
 
-    public void addNewFoodHistory(Integer date, Integer food_id, Integer quantity){
+    public void addNewFoodHistory(String date, Integer food_id, Integer quantity){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbContract.FeedFoodHistory.COL1, date);
@@ -95,40 +98,34 @@ public class DbHelper extends SQLiteOpenHelper {
         return foodItem;
     }
 
+    public List<String> getAllFoodNames(){
+        List<String> foods = new ArrayList<String>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + DbContract.FeedAvailableFoods.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                foods.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning foods
+        return foods;
+    }
+
     public void deleteAllFoodItems(){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + DbContract.FeedAvailableFoods.TABLE_NAME);
         db.close();
     }
 
-
-//    public Cursor getNutrientValue(String name, String nutrient){
-//        SQLiteDatabase db = getReadableDatabase();
-//        String[] columns = {"name", nutrient};
-//        String selection = "name = ?";
-//        String[] selectionArgs = {name};
-//        Cursor cursor = db.query(
-//                DbContract.FeedAvailableFoods.TABLE_NAME,
-//                columns,
-//                selection,
-//                selectionArgs,
-//                null, null, null
-//        );
-//
-//        return cursor;
-//    }
-//
-//    public FoodItem findFoodItemByName(String name){
-//        SQLiteDatabase db = getReadableDatabase();
-//        FoodItem foodItem = new FoodItem(name);
-//        String[] columns = {DbContract.FeedAvailableFoods.COL1, DbContract.FeedAvailableFoods.COL2,
-//                DbContract.FeedAvailableFoods.COL3, DbContract.FeedAvailableFoods.COL4, DbContract.FeedAvailableFoods.COL5};
-//        String[] args = {name};
-//        Cursor cursor = db.query(DbContract.FeedAvailableFoods.TABLE_NAME, columns, "name = ? ", args, null, null, null, null);
-//        if(cursor != null){
-//            cursor.moveToFirst();
-//            foodItem.setNutrientsHashMap();
-//        }
-//
-//    }
 }
