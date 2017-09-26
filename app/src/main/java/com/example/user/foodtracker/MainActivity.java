@@ -1,6 +1,7 @@
 package com.example.user.foodtracker;
 
 import android.app.DialogFragment;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,10 +18,11 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView currentDate;
     String selectedDate;
 
     @Override
@@ -45,8 +47,8 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
         fragmentTransaction.commit();
 
-
     }
+
 
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new CalendarFragment();
