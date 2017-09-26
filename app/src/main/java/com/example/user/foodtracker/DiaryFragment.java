@@ -17,6 +17,7 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class DiaryFragment extends Fragment {
+
     String date;
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
 
@@ -44,6 +45,11 @@ public class DiaryFragment extends Fragment {
         return sdf.format(cal.getTime());
     }
 
+    public String getDate() {
+        return date;
+    }
 
-
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

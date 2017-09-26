@@ -55,6 +55,10 @@ public class MainActivity extends AppCompatActivity
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
+    public void showBrowseAvailableFoodsFragment(View v) {
+        DialogFragment newFragment = new BrowseAvailableFoodsFragment();
+        newFragment.show(getFragmentManager(), "browseFoods");
+    }
 
 
     @Override
