@@ -34,7 +34,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     DbContract.FeedAvailableFoods.COL5 + " REAL);" +
             "CREATE TABLE " + DbContract.FeedFoodHistory.TABLE_NAME + " (" +
                     DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    DbContract.FeedFoodHistory.COL1 + " INTEGER," +
+                    DbContract.FeedFoodHistory.COL1 + " TEXT," +
                     DbContract.FeedFoodHistory.COL2 + " INTEGER REFERENCES available_foods(_id)," +
                     DbContract.FeedFoodHistory.COL3 + " INTEGER)";
 

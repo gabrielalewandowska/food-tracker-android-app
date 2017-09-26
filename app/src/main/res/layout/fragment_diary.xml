@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,10 +8,28 @@
     <!-- TODO: Update blank fragment layout -->
 
     <ListView
+        android:id="@+id/list_foods_eaten_in_a_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        />
+        android:layout_marginTop="150dp" />
+
+    <Button
+        android:id="@+id/btn_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="10dp"
+        android:text="Calendar"
+        android:onClick="showDatePickerDialog"/>
+
+    <TextView
+        android:id="@+id/text_current_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="80dp" />
+
 </FrameLayout>
