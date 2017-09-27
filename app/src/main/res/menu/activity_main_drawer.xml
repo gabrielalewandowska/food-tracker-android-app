@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/diaryFragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@mipmap/ic_create_black_24dp"
             android:title="Diary" />
         <item
             android:id="@+id/AddNewFoodFragment"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@mipmap/ic_note_add_black_24dp"
             android:title="Add New Food" />
         <item
             android:id="@+id/HistoryFragment"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@mipmap/ic_date_range_black_24dp"
             android:title="History" />
     </group>
 
