@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fragmentManager;
     DiaryFragment diaryFragment;
+    DiaryFragment newDiaryFragment;
     CalendarFragment calendarFragment;
     String date;
     Integer food_id;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        addDynamicDiaryFragment();
 
         DbHelper db = new DbHelper(this);
         db.deleteAllFoodItems();
@@ -52,11 +54,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        DiaryFragment fragment = new DiaryFragment();
-        fragmentTransaction.add(R.id.frag_container, fragment);
-        fragmentTransaction.commit();
-        diaryFragment = (DiaryFragment) fragmentManager.findFragmentById(R.id.frag_container);
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        DiaryFragment fragment = new DiaryFragment();
+//        fragmentTransaction.replace(R.id.frag_container, fragment);
+//        fragmentTransaction.commit();
+        diaryFragment = (DiaryFragment) fragmentManager.findFragmentByTag("diary_fragment");
 //        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diary_fragment);
 //        diaryFragment = (DiaryFragment) fragmentManager.findFragmentById(R.id.diary_fragment);
 //        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diary_fragment);
@@ -141,6 +143,17 @@ public class MainActivity extends AppCompatActivity
     public void setDate(String newDate){
         this.date = newDate;
         Log.d("Changed date:", this.date);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        diaryFragment.setDate(this.date);
+//        fragmentTransaction.replace(R.id.diary_fragment, diaryFragment);
+        fragmentTransaction.commit();
+
+    }
+
+    public void addDynamicDiaryFragment(){
+        newDiaryFragment = new DiaryFragment();
+        getFragmentManager().beginTransaction().add(R.id.drawer_layout, newDiaryFragment, "diary_fragment").commit();
+        getFragmentManager().executePendingTransactions();
     }
 
     public String getDate(){

@@ -96,7 +96,7 @@ public class DiaryFragment extends Fragment {
     }
 
     public void setDate(String date) {
-        this.date = date;
+        dateBox.setText(date);
     }
 
 }
