@@ -5,7 +5,8 @@ import android.app.DialogFragment;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,12 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class DiaryFragment extends Fragment {
+
     Spinner spinner;
-
-
     String date;
-    public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
+    MainActivity mainActivity;
+    TextView dateBox;
+
 
     public DiaryFragment() {
         // Required empty public constructor
@@ -38,10 +40,12 @@ public class DiaryFragment extends Fragment {
 
 //         Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_diary, container, false);
-        TextView dateBox = (TextView) layout.findViewById(R.id.text_current_date);
-        date = getCurrentDateAsString();
-        dateBox.setText(date);
+//        TextView dateBox = (TextView) layout.findViewById(R.id.text_current_date);
+//        date = getCurrentDateAsString();
+//        dateBox.setText(date);
 
+
+//        dateBox.setText(mainActivity.getDa);
         spinner = (Spinner) layout.findViewById(R.id.spinner);
 //        spinner.setOnItemClickListener();
 
@@ -49,6 +53,14 @@ public class DiaryFragment extends Fragment {
 
         return layout;
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
+        dateBox = (TextView) getView().findViewById(R.id.text_current_date);
+        dateBox.setText(mainActivity.getDate());
     }
 
     private void loadSpinnerData() {
@@ -70,11 +82,14 @@ public class DiaryFragment extends Fragment {
         spinner.setAdapter(dataAdapter);
     }
 
-    public static String getCurrentDateAsString(){
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
-        return sdf.format(cal.getTime());
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d("onResume is called", mainActivity.getDate());
+        dateBox.setText(mainActivity.getDate());
     }
+
+
 
     public String getDate() {
         return date;
@@ -83,4 +98,5 @@ public class DiaryFragment extends Fragment {
     public void setDate(String date) {
         this.date = date;
     }
+
 }

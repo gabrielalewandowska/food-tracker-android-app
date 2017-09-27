@@ -1,10 +1,12 @@
 package com.example.user.foodtracker;
 
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +20,13 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String selectedDate;
     FragmentManager fragmentManager;
     DiaryFragment diaryFragment;
+    CalendarFragment calendarFragment;
+    String date;
+    Integer food_id;
+    Integer quantity;
+    public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +52,18 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getFragmentManager();
-        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diaryFragment);
-        FragmentTransaction fragmentTransactionGeneral = fragmentManager.beginTransaction();
-
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         DiaryFragment fragment = new DiaryFragment();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
+        fragmentTransaction.add(R.id.frag_container, fragment);
         fragmentTransaction.commit();
+        diaryFragment = (DiaryFragment) fragmentManager.findFragmentById(R.id.frag_container);
+//        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diary_fragment);
+//        diaryFragment = (DiaryFragment) fragmentManager.findFragmentById(R.id.diary_fragment);
+//        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diary_fragment);
+//        FragmentTransaction fragmentTransactionGeneral = fragmentManager.beginTransaction();
+
+        date = getCurrentDateAsString();
+
 
     }
 
@@ -105,19 +116,19 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.diaryFragment) {
             setTitle("Diary");
             DiaryFragment fragment = new DiaryFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
             fragmentTransaction.commit();
         } else if (id == R.id.AddNewFoodFragment) {
             setTitle("Add New Food Fragment");
             AddNewFoodFragment fragment = new AddNewFoodFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "Add New Food");
             fragmentTransaction.commit();
         } else if (id == R.id.HistoryFragment) {
             setTitle("History Fragment");
             HistoryFragment fragment = new HistoryFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "History");
             fragmentTransaction.commit();
         }
@@ -127,9 +138,19 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void setSelectedDate(String date){
-        this.selectedDate = date;
+    public void setDate(String newDate){
+        this.date = newDate;
+        Log.d("Changed date:", this.date);
     }
 
+    public String getDate(){
+        return this.date;
+    }
+
+    public static String getCurrentDateAsString(){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
+    }
 
 }

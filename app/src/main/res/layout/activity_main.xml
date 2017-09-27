@@ -22,4 +22,10 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
+    <fragment
+        android:name="com.example.user.foodtracker.DiaryFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frag_container"
+></fragment>
 </android.support.v4.widget.DrawerLayout>

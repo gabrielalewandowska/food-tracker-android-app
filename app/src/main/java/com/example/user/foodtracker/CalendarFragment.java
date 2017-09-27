@@ -26,7 +26,6 @@ public class CalendarFragment extends DialogFragment implements DatePickerDialog
 
     MainActivity mainActivity;
 
-
 //    public interface OnSetSelectedDateListener {
 //        public void setSelectedDate(String date);
 //    }
@@ -44,22 +43,27 @@ public class CalendarFragment extends DialogFragment implements DatePickerDialog
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
+    }
+
+    @Override
     public void onAttach(Context context){
         super.onAttach(context);
         mainActivity = (MainActivity) context;
-        Log.d("onAttach", "hi it's me");
+
     }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-
         Calendar c = Calendar.getInstance();
         c.set(year, month, day);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String formattedDate = sdf.format(c.getTime());
-        mainActivity.setSelectedDate(formattedDate);
+        Calendar cal = Calendar.getInstance();
+        mainActivity.setDate(formattedDate);
 
     }
 
