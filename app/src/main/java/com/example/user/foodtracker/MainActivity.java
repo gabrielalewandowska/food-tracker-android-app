@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,10 +42,10 @@ public class MainActivity extends AppCompatActivity
         addDynamicDiaryFragment();
 
         db = new DbHelper(this);
-        db.deleteAllFoodItems();
-        db.addNewFood("oats", 389, 66.3, 6.9, 16.9);
-        db.addNewFood("bananas", 89, 22.8, 0.3, 1.1);
-        db.addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
+//        db.deleteAllFoodItems();
+//        db.addNewFood("oats", 389, 66.3, 6.9, 16.9);
+//        db.addNewFood("bananas", 89, 22.8, 0.3, 1.1);
+//        db.addNewFood("sweet potatoes", 86, 20.12, 0.05, 1.6);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -160,6 +162,8 @@ public class MainActivity extends AppCompatActivity
 
     public void setQuantity(Integer newQuantity){
         this.quantity = newQuantity;
+        Log.d("MainActivity", "quantity updated");
+        this.addNewFoodHistoryToDb();
     }
 
     public Integer getQuantity(){
@@ -174,7 +178,6 @@ public class MainActivity extends AppCompatActivity
     public void setFoodName(String foodName) {
         this.foodName = foodName;
         this.updateFoodIdWithName(foodName);
-        this.addNewFoodHistoryToDb();
     }
 
     public void updateFoodIdWithName(String foodName){
@@ -184,5 +187,6 @@ public class MainActivity extends AppCompatActivity
 
     public void addNewFoodHistoryToDb(){
         db.addNewFoodHistory(this.date, this.food_id, this.quantity);
+        Log.d("Database", "updated");
     }
 }
