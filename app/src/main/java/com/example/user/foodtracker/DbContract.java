@@ -28,3 +28,4 @@ public class DbContract {
         public static final String COL3 = "quantity";
     }
 }
+

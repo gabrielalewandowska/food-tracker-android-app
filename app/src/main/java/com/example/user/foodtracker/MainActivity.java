@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity
     public void setFoodName(String foodName) {
         this.foodName = foodName;
         this.updateFoodIdWithName(foodName);
+        this.addNewFoodHistoryToDb();
     }
 
     public void updateFoodIdWithName(String foodName){
@@ -181,5 +182,7 @@ public class MainActivity extends AppCompatActivity
         Log.d("food_id: ", this.food_id.toString());
     }
 
-    
+    public void addNewFoodHistoryToDb(){
+        db.addNewFoodHistory(this.date, this.food_id, this.quantity);
+    }
 }

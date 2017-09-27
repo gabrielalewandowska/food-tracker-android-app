@@ -98,6 +98,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return foodItem;
     }
 
+
     public List<String> getAllFoodNames(){
         List<String> foods = new ArrayList<String>();
 
