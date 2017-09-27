@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -20,7 +21,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FragmentManager fragmentManager;
+    android.support.v4.app.FragmentManager fragmentManager;
     DiaryFragment diaryFragment;
     DiaryFragment newDiaryFragment;
     CalendarFragment calendarFragment;
@@ -52,18 +53,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        DiaryFragment fragment = new DiaryFragment();
-//        fragmentTransaction.replace(R.id.frag_container, fragment);
-//        fragmentTransaction.commit();
+        fragmentManager = getSupportFragmentManager();
         diaryFragment = (DiaryFragment) fragmentManager.findFragmentByTag("diary_fragment");
-//        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diary_fragment);
-//        diaryFragment = (DiaryFragment) fragmentManager.findFragmentById(R.id.diary_fragment);
-//        diaryFragment = (DiaryFragment) getSupportFragmentManager().findFragmentById(R.id.diary_fragment);
-//        FragmentTransaction fragmentTransactionGeneral = fragmentManager.beginTransaction();
-
         date = getCurrentDateAsString();
 
 
@@ -118,19 +109,19 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.diaryFragment) {
             setTitle("Diary");
             DiaryFragment fragment = new DiaryFragment();
-            android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
             fragmentTransaction.commit();
         } else if (id == R.id.AddNewFoodFragment) {
             setTitle("Add New Food Fragment");
             AddNewFoodFragment fragment = new AddNewFoodFragment();
-            android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "Add New Food");
             fragmentTransaction.commit();
         } else if (id == R.id.HistoryFragment) {
             setTitle("History Fragment");
             HistoryFragment fragment = new HistoryFragment();
-            android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "History");
             fragmentTransaction.commit();
         }
@@ -152,8 +143,8 @@ public class MainActivity extends AppCompatActivity
 
     public void addDynamicDiaryFragment(){
         newDiaryFragment = new DiaryFragment();
-        getFragmentManager().beginTransaction().add(R.id.drawer_layout, newDiaryFragment, "diary_fragment").commit();
-        getFragmentManager().executePendingTransactions();
+        getSupportFragmentManager().beginTransaction().add(R.id.drawer_layout, newDiaryFragment, "diary_fragment").commit();
+        getSupportFragmentManager().executePendingTransactions();
     }
 
     public String getDate(){
@@ -164,6 +155,14 @@ public class MainActivity extends AppCompatActivity
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
         return sdf.format(cal.getTime());
+    }
+
+    public void setQuantity(Integer newQuantity){
+        this.quantity = newQuantity;
+    }
+
+    public Integer getQuantity(){
+        return this.quantity;
     }
 
 }

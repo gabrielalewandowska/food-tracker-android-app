@@ -5,13 +5,14 @@ import android.app.DialogFragment;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ public class DiaryFragment extends Fragment {
     String date;
     MainActivity mainActivity;
     TextView dateBox;
+    EditText quantityBox;
+    Button addEntry;
 
 
     public DiaryFragment() {
@@ -40,16 +43,13 @@ public class DiaryFragment extends Fragment {
 
 //         Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_diary, container, false);
-//        TextView dateBox = (TextView) layout.findViewById(R.id.text_current_date);
-//        date = getCurrentDateAsString();
-//        dateBox.setText(date);
 
-
-//        dateBox.setText(mainActivity.getDa);
         spinner = (Spinner) layout.findViewById(R.id.spinner);
 //        spinner.setOnItemClickListener();
-
         loadSpinnerData();
+
+        quantityBox = (EditText) layout.findViewById(R.id.edit_quantity);
+        addEntry = (Button) layout.findViewById(R.id.btn_add_entry);
 
         return layout;
 
@@ -61,6 +61,14 @@ public class DiaryFragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
         dateBox = (TextView) getView().findViewById(R.id.text_current_date);
         dateBox.setText(mainActivity.getDate());
+        addEntry.setOnClickListener(new View .OnClickListener(){
+            public void onClick(View view){
+                String value = quantityBox.getText().toString();
+                int finalValue = Integer.parseInt(value);
+                mainActivity.setQuantity(finalValue);
+                Log.d("Main quantity: ", mainActivity.getQuantity().toString());
+            }
+        });
     }
 
     private void loadSpinnerData() {
