@@ -122,6 +122,25 @@ public class DbHelper extends SQLiteOpenHelper {
         return foods;
     }
 
+    public Integer findFoodIdWithName(String name){
+        FoodItem foodItem = new FoodItem();
+        String[] columns = {"id", "name", "kcal", "carbohydrates", "fat", "protein"};
+        String[] args = {name};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(DbContract.FeedAvailableFoods.TABLE_NAME, columns, " name = ?", args, null, null, null);
+        if (cursor != null){
+            cursor.moveToFirst();
+            foodItem.setId(cursor.getInt(0));
+            foodItem.setName(cursor.getString(1));
+            foodItem.setKcal(cursor.getInt(2));
+            foodItem.setCarbohydrates(cursor.getDouble(3));
+            foodItem.setFat(cursor.getDouble(4));
+            foodItem.setProtein(cursor.getDouble(5));
+        }
+
+        return foodItem.getId();
+    }
+
     public void deleteAllFoodItems(){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + DbContract.FeedAvailableFoods.TABLE_NAME);

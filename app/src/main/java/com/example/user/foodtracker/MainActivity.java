@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity
     android.support.v4.app.FragmentManager fragmentManager;
     DiaryFragment diaryFragment;
     DiaryFragment newDiaryFragment;
-    CalendarFragment calendarFragment;
     String date;
     String foodName;
     Integer food_id;
