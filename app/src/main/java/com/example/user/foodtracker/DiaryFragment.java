@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class DiaryFragment extends Fragment implements AdapterView.OnItemSelecte
                 String value = quantityBox.getText().toString();
                 int finalValue = Integer.parseInt(value);
                 mainActivity.setQuantity(finalValue);
+                Toast.makeText(mainActivity, "Entry saved!", Toast.LENGTH_SHORT).show();
                 Log.d("Main quantity: ", mainActivity.getQuantity().toString());
             }
         });
