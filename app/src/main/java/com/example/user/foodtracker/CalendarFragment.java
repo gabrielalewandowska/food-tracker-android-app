@@ -26,10 +26,6 @@ public class CalendarFragment extends DialogFragment implements DatePickerDialog
 
     MainActivity mainActivity;
 
-//    public interface OnSetSelectedDateListener {
-//        public void setSelectedDate(String date);
-//    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
