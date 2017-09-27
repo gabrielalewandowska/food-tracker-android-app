@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     DiaryFragment newDiaryFragment;
     CalendarFragment calendarFragment;
     String date;
+    String foodName;
     Integer food_id;
     Integer quantity;
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
@@ -165,4 +166,12 @@ public class MainActivity extends AppCompatActivity
         return this.quantity;
     }
 
+
+    public String getFoodName() {
+        return foodName;
+    }
+
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
 }

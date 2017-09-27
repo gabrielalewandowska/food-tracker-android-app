@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DiaryFragment extends Fragment {
+public class DiaryFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     Spinner spinner;
     String date;
@@ -45,7 +46,7 @@ public class DiaryFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_diary, container, false);
 
         spinner = (Spinner) layout.findViewById(R.id.spinner);
-//        spinner.setOnItemClickListener();
+        spinner.setOnItemSelectedListener(this);
         loadSpinnerData();
 
         quantityBox = (EditText) layout.findViewById(R.id.edit_quantity);
@@ -61,7 +62,8 @@ public class DiaryFragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
         dateBox = (TextView) getView().findViewById(R.id.text_current_date);
         dateBox.setText(mainActivity.getDate());
-        addEntry.setOnClickListener(new View .OnClickListener(){
+
+        addEntry.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 String value = quantityBox.getText().toString();
                 int finalValue = Integer.parseInt(value);
@@ -107,4 +109,15 @@ public class DiaryFragment extends Fragment {
         dateBox.setText(date);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        String foodName = parent.getItemAtPosition(pos).toString();
+        mainActivity.setFoodName(foodName);
+        Log.d("MainActivity foodName: ", mainActivity.getFoodName());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }
