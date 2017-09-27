@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
     Integer food_id;
     Integer quantity;
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
+    DbHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         addDynamicDiaryFragment();
 
-        DbHelper db = new DbHelper(this);
+        db = new DbHelper(this);
         db.deleteAllFoodItems();
         db.addNewFood("oats", 389, 66.3, 6.9, 16.9);
         db.addNewFood("bananas", 89, 22.8, 0.3, 1.1);
@@ -172,5 +173,13 @@ public class MainActivity extends AppCompatActivity
 
     public void setFoodName(String foodName) {
         this.foodName = foodName;
+        this.updateFoodIdWithName(foodName);
     }
+
+    public void updateFoodIdWithName(String foodName){
+        this.food_id = db.findFoodIdWithName(foodName);
+        Log.d("food_id: ", this.food_id.toString());
+    }
+
+    
 }
