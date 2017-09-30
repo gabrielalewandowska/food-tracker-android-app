@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity
     Integer quantity;
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
     DbHelper db;
+    DiaryFragment testDiaryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        addDynamicDiaryFragment();
+//        addDynamicDiaryFragment();
 
         db = new DbHelper(this);
 //        db.deleteAllFoodItems();
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.diaryFragment) {
             setTitle("Diary");
             DiaryFragment fragment = new DiaryFragment();
+            testDiaryFragment = fragment;
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
             fragmentTransaction.commit();
@@ -137,10 +139,11 @@ public class MainActivity extends AppCompatActivity
     public void setDate(String newDate){
         this.date = newDate;
         Log.d("Changed date:", this.date);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        diaryFragment.setDate(this.date);
-//        fragmentTransaction.replace(R.id.diary_fragment, diaryFragment);
-        fragmentTransaction.commit();
+//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+////        diaryFragment.setDate(this.date);
+////        fragmentTransaction.replace(R.id.diary_fragment, diaryFragment);
+//        fragmentTransaction.commit();
+        testDiaryFragment.setDate(this.date);
 
     }
 
@@ -163,7 +166,8 @@ public class MainActivity extends AppCompatActivity
     public void setQuantity(Integer newQuantity){
         this.quantity = newQuantity;
         Log.d("MainActivity", "quantity updated");
-        this.addNewFoodHistoryToDb();
+        db.addNewFoodHistory(this.date, this.food_id, this.quantity);
+        Log.d("Database", "updated");
     }
 
     public Integer getQuantity(){
@@ -185,8 +189,8 @@ public class MainActivity extends AppCompatActivity
         Log.d("food_id: ", this.food_id.toString());
     }
 
-    public void addNewFoodHistoryToDb(){
-        db.addNewFoodHistory(this.date, this.food_id, this.quantity);
-        Log.d("Database", "updated");
-    }
+//    public void addNewFoodHistoryToDb(){
+//        db.addNewFoodHistory(this.date, this.food_id, this.quantity);
+//        Log.d("Database", "updated");
+//    }
 }
