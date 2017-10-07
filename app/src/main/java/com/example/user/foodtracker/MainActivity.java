@@ -79,10 +79,6 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-//            This doesn't seem to work with fragments
-//            TaskStackBuilder builder = TaskStackBuilder.create(this);
-//            builder.addParentStack(MainActivity.class);
-//            startActivities(builder.getIntents());
         }
     }
 
@@ -143,19 +139,15 @@ public class MainActivity extends AppCompatActivity
     public void setDate(String newDate){
         this.date = newDate;
         Log.d("Changed date:", this.date);
-//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-////        diaryFragment.setDate(this.date);
-////        fragmentTransaction.replace(R.id.diary_fragment, diaryFragment);
-//        fragmentTransaction.commit();
         testDiaryFragment.setDate(this.date);
 
     }
 
-    public void addDynamicDiaryFragment(){
-        newDiaryFragment = new DiaryFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.drawer_layout, newDiaryFragment, "diary_fragment").commit();
-        getSupportFragmentManager().executePendingTransactions();
-    }
+//    public void addDynamicDiaryFragment(){
+//        newDiaryFragment = new DiaryFragment();
+//        getSupportFragmentManager().beginTransaction().add(R.id.drawer_layout, newDiaryFragment, "diary_fragment").commit();
+//        getSupportFragmentManager().executePendingTransactions();
+//    }
 
     public String getDate(){
         return this.date;
@@ -193,8 +185,4 @@ public class MainActivity extends AppCompatActivity
         Log.d("food_id: ", this.food_id.toString());
     }
 
-//    public void addNewFoodHistoryToDb(){
-//        db.addNewFoodHistory(this.date, this.food_id, this.quantity);
-//        Log.d("Database", "updated");
-//    }
 }

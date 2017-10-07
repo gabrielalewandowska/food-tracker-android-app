@@ -28,7 +28,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String activateForeignKeys = "PRAGMA foreign_keys = ON";
 
         String SQL_CREATE_TABLE1 =
                 "CREATE TABLE " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
@@ -37,47 +36,18 @@ public class DbHelper extends SQLiteOpenHelper {
                         DbContract.FeedAvailableFoods.KCAL + " REAL," +
                         DbContract.FeedAvailableFoods.CARBS + " REAL," +
                         DbContract.FeedAvailableFoods.FAT + " REAL," +
-                        DbContract.FeedAvailableFoods.PROTEIN + " REAL)";
+                        DbContract.FeedAvailableFoods.PROTEIN + " REAL);";
 
         String SQL_CREATE_TABLE2 =
                 "CREATE TABLE " + DbContract.FeedFoodHistory.TABLE_NAME + " (" +
                 DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DbContract.FeedFoodHistory.DATE + " TEXT," +
                 DbContract.FeedFoodHistory.FOOD_ID + " INTEGER REFERENCES available_foods(_id)," +
-                DbContract.FeedFoodHistory.QUANTITY + " INTEGER)";
+                DbContract.FeedFoodHistory.QUANTITY + " INTEGER);";
 
 
-        String SQL_ADD_OATS = "INSERT INTO " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
-                DbContract.FeedAvailableFoods.NAME + ", " +
-                DbContract.FeedAvailableFoods.KCAL + ", " +
-                DbContract.FeedAvailableFoods.CARBS + ", " +
-                DbContract.FeedAvailableFoods.FAT + ", " +
-                DbContract.FeedAvailableFoods.PROTEIN + ")" + " VALUES " + "(oats, " + 389 + ", " +
-                66.3 + ", " + 6.9 + ", " + 16.9 +")";
-
-        String SQL_ADD_BANANAS = "INSERT INTO " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
-                DbContract.FeedAvailableFoods.NAME + ", " +
-                DbContract.FeedAvailableFoods.KCAL + ", " +
-                DbContract.FeedAvailableFoods.CARBS + ", " +
-                DbContract.FeedAvailableFoods.FAT + ", " +
-                DbContract.FeedAvailableFoods.PROTEIN + ")" + " VALUES " + "(bananas, " + 89 + ", " +
-                22.8 + ", " + 0.3 + ", " + 1.1 +")";
-
-        String SQL_ADD_SWEET_POTATOES = "INSERT INTO " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
-                DbContract.FeedAvailableFoods.NAME + ", " +
-                DbContract.FeedAvailableFoods.KCAL + ", " +
-                DbContract.FeedAvailableFoods.CARBS + ", " +
-                DbContract.FeedAvailableFoods.FAT + ", " +
-                DbContract.FeedAvailableFoods.PROTEIN + ")" + " VALUES " + "(sweet potatoes, " + 86 + ", " +
-                20.12 + ", " + 0.05 + ", " + 1.6 +")";
-
-        sqLiteDatabase.execSQL(activateForeignKeys);
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE1);
         sqLiteDatabase.execSQL(SQL_CREATE_TABLE2);
-        sqLiteDatabase.execSQL(SQL_ADD_OATS);
-        sqLiteDatabase.execSQL(SQL_ADD_BANANAS);
-        sqLiteDatabase.execSQL(SQL_ADD_SWEET_POTATOES);
-
 
     }
 
