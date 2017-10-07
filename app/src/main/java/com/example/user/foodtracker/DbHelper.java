@@ -25,37 +25,67 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
-                    DbContract.FeedAvailableFoods._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    DbContract.FeedAvailableFoods.NAME + " TEXT," +
-                    DbContract.FeedAvailableFoods.KCAL + " REAL," +
-                    DbContract.FeedAvailableFoods.CARBS + " REAL," +
-                    DbContract.FeedAvailableFoods.FAT + " REAL," +
-                    DbContract.FeedAvailableFoods.PROTEIN + " REAL);" +
-            "CREATE TABLE " + DbContract.FeedFoodHistory.TABLE_NAME + " (" +
-                    DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    DbContract.FeedFoodHistory.DATE + " TEXT," +
-                    DbContract.FeedFoodHistory.FOOD_ID + " INTEGER REFERENCES available_foods(_id)," +
-                    DbContract.FeedFoodHistory.QUANTITY + " INTEGER)";
-
-
-    private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + DbContract.FeedAvailableFoods.TABLE_NAME +
-            "DROP TABLE IF EXISTS " + DbContract.FeedFoodHistory.TABLE_NAME;
-
-
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
-        this.deleteAllFoodItems();
+        String activateForeignKeys = "PRAGMA foreign_keys = ON";
+
+        String SQL_CREATE_TABLE1 =
+                "CREATE TABLE " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
+                        DbContract.FeedAvailableFoods._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                        DbContract.FeedAvailableFoods.NAME + " TEXT," +
+                        DbContract.FeedAvailableFoods.KCAL + " REAL," +
+                        DbContract.FeedAvailableFoods.CARBS + " REAL," +
+                        DbContract.FeedAvailableFoods.FAT + " REAL," +
+                        DbContract.FeedAvailableFoods.PROTEIN + " REAL)";
+
+        String SQL_CREATE_TABLE2 =
+                "CREATE TABLE " + DbContract.FeedFoodHistory.TABLE_NAME + " (" +
+                DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                DbContract.FeedFoodHistory.DATE + " TEXT," +
+                DbContract.FeedFoodHistory.FOOD_ID + " INTEGER REFERENCES available_foods(_id)," +
+                DbContract.FeedFoodHistory.QUANTITY + " INTEGER)";
+
+
+        String SQL_ADD_OATS = "INSERT INTO " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
+                DbContract.FeedAvailableFoods.NAME + ", " +
+                DbContract.FeedAvailableFoods.KCAL + ", " +
+                DbContract.FeedAvailableFoods.CARBS + ", " +
+                DbContract.FeedAvailableFoods.FAT + ", " +
+                DbContract.FeedAvailableFoods.PROTEIN + ")" + " VALUES " + "(oats, " + 389 + ", " +
+                66.3 + ", " + 6.9 + ", " + 16.9 +")";
+
+        String SQL_ADD_BANANAS = "INSERT INTO " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
+                DbContract.FeedAvailableFoods.NAME + ", " +
+                DbContract.FeedAvailableFoods.KCAL + ", " +
+                DbContract.FeedAvailableFoods.CARBS + ", " +
+                DbContract.FeedAvailableFoods.FAT + ", " +
+                DbContract.FeedAvailableFoods.PROTEIN + ")" + " VALUES " + "(bananas, " + 89 + ", " +
+                22.8 + ", " + 0.3 + ", " + 1.1 +")";
+
+        String SQL_ADD_SWEET_POTATOES = "INSERT INTO " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
+                DbContract.FeedAvailableFoods.NAME + ", " +
+                DbContract.FeedAvailableFoods.KCAL + ", " +
+                DbContract.FeedAvailableFoods.CARBS + ", " +
+                DbContract.FeedAvailableFoods.FAT + ", " +
+                DbContract.FeedAvailableFoods.PROTEIN + ")" + " VALUES " + "(sweet potatoes, " + 86 + ", " +
+                20.12 + ", " + 0.05 + ", " + 1.6 +")";
+
+        sqLiteDatabase.execSQL(activateForeignKeys);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABLE1);
+        sqLiteDatabase.execSQL(SQL_CREATE_TABLE2);
+        sqLiteDatabase.execSQL(SQL_ADD_OATS);
+        sqLiteDatabase.execSQL(SQL_ADD_BANANAS);
+        sqLiteDatabase.execSQL(SQL_ADD_SWEET_POTATOES);
+
+
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL("DROP TABLE IF EXISTS " + DbContract.FeedAvailableFoods.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DbContract.FeedFoodHistory.TABLE_NAME);
         onCreate(db);
     }
 
