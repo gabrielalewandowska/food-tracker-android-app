@@ -18,8 +18,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "food.db";
-    public static final String Table1 = "available_foods";
-    public static final String Table2 = "food_history";
 
 
     public DbHelper(Context context) {
@@ -30,16 +28,16 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DbContract.FeedAvailableFoods.TABLE_NAME + " (" +
                     DbContract.FeedAvailableFoods._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                    DbContract.FeedAvailableFoods.COL1 + " TEXT," +
-                    DbContract.FeedAvailableFoods.COL2 + " REAL," +
-                    DbContract.FeedAvailableFoods.COL3 + " REAL," +
-                    DbContract.FeedAvailableFoods.COL4 + " REAL," +
-                    DbContract.FeedAvailableFoods.COL5 + " REAL);" +
+                    DbContract.FeedAvailableFoods.NAME + " TEXT," +
+                    DbContract.FeedAvailableFoods.KCAL + " REAL," +
+                    DbContract.FeedAvailableFoods.CARBS + " REAL," +
+                    DbContract.FeedAvailableFoods.FAT + " REAL," +
+                    DbContract.FeedAvailableFoods.PROTEIN + " REAL);" +
             "CREATE TABLE " + DbContract.FeedFoodHistory.TABLE_NAME + " (" +
                     DbContract.FeedFoodHistory._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    DbContract.FeedFoodHistory.COL1 + " TEXT," +
-                    DbContract.FeedFoodHistory.COL2 + " INTEGER REFERENCES available_foods(_id)," +
-                    DbContract.FeedFoodHistory.COL3 + " INTEGER)";
+                    DbContract.FeedFoodHistory.DATE + " TEXT," +
+                    DbContract.FeedFoodHistory.FOOD_ID + " INTEGER REFERENCES available_foods(_id)," +
+                    DbContract.FeedFoodHistory.QUANTITY + " INTEGER)";
 
 
     private static final String SQL_DELETE_ENTRIES =
@@ -64,20 +62,20 @@ public class DbHelper extends SQLiteOpenHelper {
     public void addNewFood(String name, int kcal, double carbs, double fat, double protein){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DbContract.FeedAvailableFoods.COL1, name);
-        values.put(DbContract.FeedAvailableFoods.COL2, kcal);
-        values.put(DbContract.FeedAvailableFoods.COL3, carbs);
-        values.put(DbContract.FeedAvailableFoods.COL4, fat);
-        values.put(DbContract.FeedAvailableFoods.COL5, protein);
+        values.put(DbContract.FeedAvailableFoods.NAME, name);
+        values.put(DbContract.FeedAvailableFoods.KCAL, kcal);
+        values.put(DbContract.FeedAvailableFoods.CARBS, carbs);
+        values.put(DbContract.FeedAvailableFoods.FAT, fat);
+        values.put(DbContract.FeedAvailableFoods.PROTEIN, protein);
         db.insertOrThrow(DbContract.FeedAvailableFoods.TABLE_NAME, null, values);
     }
 
     public void addNewFoodHistory(String date, Integer food_id, Integer quantity){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DbContract.FeedFoodHistory.COL1, date);
-        values.put(DbContract.FeedFoodHistory.COL2, food_id);
-        values.put(DbContract.FeedFoodHistory.COL3, quantity);
+        values.put(DbContract.FeedFoodHistory.DATE, date);
+        values.put(DbContract.FeedFoodHistory.FOOD_ID, food_id);
+        values.put(DbContract.FeedFoodHistory.QUANTITY, quantity);
         db.insertOrThrow(DbContract.FeedFoodHistory.TABLE_NAME, null, values);
     }
 
@@ -151,8 +149,11 @@ public class DbHelper extends SQLiteOpenHelper {
     //History Fragment
 
     // write a method that searches through all unique food items in table2
-    public FoodItem findFoodsEatenInAMonth(String month, String year){
+    public FoodHistory findFoodsEatenInAMonth(String month, String year){
         // search through col1 between 01 and 31
+        FoodHistory foodHistory = new FoodHistory();
+
+        return foodHistory;
     }
 
     // write a method that adds all eaten amounts of those foods
