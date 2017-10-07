@@ -7,6 +7,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -79,14 +80,11 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+//            This doesn't seem to work with fragments
+//            TaskStackBuilder builder = TaskStackBuilder.create(this);
+//            builder.addParentStack(MainActivity.class);
+//            startActivities(builder.getIntents());
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     @Override
@@ -110,25 +108,32 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.diaryFragment) {
-            setTitle("Diary");
-            DiaryFragment fragment = new DiaryFragment();
-            testDiaryFragment = fragment;
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
-            fragmentTransaction.commit();
-        } else if (id == R.id.AddNewFoodFragment) {
-            setTitle("Add New Food Fragment");
-            AddNewFoodFragment fragment = new AddNewFoodFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame, fragment, "Add New Food");
-            fragmentTransaction.commit();
-        } else if (id == R.id.HistoryFragment) {
-            setTitle("History Fragment");
-            HistoryFragment fragment = new HistoryFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.frame, fragment, "History");
-            fragmentTransaction.commit();
+        switch (id) {
+            case R.id.diaryFragment: {
+                setTitle("Diary");
+                DiaryFragment fragment = new DiaryFragment();
+                testDiaryFragment = fragment;
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame, fragment, "Food Diary");
+                fragmentTransaction.commit();
+                break;
+            }
+            case R.id.AddNewFoodFragment: {
+                setTitle("Add New Food Fragment");
+                AddNewFoodFragment fragment = new AddNewFoodFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame, fragment, "Add New Food");
+                fragmentTransaction.commit();
+                break;
+            }
+            case R.id.HistoryFragment: {
+                setTitle("History Fragment");
+                HistoryFragment fragment = new HistoryFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame, fragment, "History");
+                fragmentTransaction.commit();
+                break;
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -148,4 +148,15 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    //History Fragment
+
+    // write a method that searches through all unique food items in table2
+    public FoodItem findFoodsEatenInAMonth(String month, String year){
+        // search through col1 between 01 and 31
+    }
+
+    // write a method that adds all eaten amounts of those foods
+
+    // return food names and total amounts
+
 }
