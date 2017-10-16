@@ -148,13 +148,27 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //History Fragment
 
-    // write a method that searches through all unique food items in table2
-    public FoodHistory findFoodsEatenInAMonth(String month, String year){
+    // write a method that searches through all foods eaten in a month
+    public FoodHistory findFoodsEatenInAMonth(Integer month, Integer year){
         // search through col1 between 01 and 31
         FoodHistory foodHistory = new FoodHistory();
+        String[] columns = {"id", "date", "food_id", "quantity"};
+        String[] args = {year+"-"+month+"-xx"};
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM food_history WHERE date LIKE ?", args);
+        if (cursor != null){
+            cursor.moveToFirst();
+            foodHistory.setId(cursor.getInt(0));
+            foodHistory.setDate(cursor.getString(1));
+            foodHistory.setFood_id(cursor.getInt(2));
+            foodHistory.setQuantity(cursor.getInt(3));
+        }
 
         return foodHistory;
     }
+
+    // method that returns unique food names
 
     // write a method that adds all eaten amounts of those foods
 

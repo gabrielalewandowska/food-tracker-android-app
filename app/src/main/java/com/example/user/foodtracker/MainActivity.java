@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity
 
     android.support.v4.app.FragmentManager fragmentManager;
     DiaryFragment diaryFragment;
-    DiaryFragment newDiaryFragment;
     String date;
     String foodName;
     Integer food_id;
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd";
     DbHelper db;
     DiaryFragment testDiaryFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,20 +84,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -143,11 +131,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-//    public void addDynamicDiaryFragment(){
-//        newDiaryFragment = new DiaryFragment();
-//        getSupportFragmentManager().beginTransaction().add(R.id.drawer_layout, newDiaryFragment, "diary_fragment").commit();
-//        getSupportFragmentManager().executePendingTransactions();
-//    }
 
     public String getDate(){
         return this.date;
