@@ -12,7 +12,7 @@ You are required to write an Android app that allows a user to track the food th
 
 ## My Project
 
-I have created an SQLite database which stores different food products (e.g. oats, bananas etc.) and their nutritional value per 100g as well as food history (all food items eaten on a certain date). Using the navigation drawer the user can go to the Diary view which automatically opens on the current date. The date can be changed using a calendar (CalendarFragment which extends DialogFragment). Then the user can select a food item from a spinner which lists all food items currently in the database. Quantity can be entered using a number input field below. When the user presses the "save" button, their new food history is saved to the database and the app displays a toast saying "Entry saved!".
+I created an SQLite database which stores different food products (e.g. oats, bananas etc.) and their nutritional value per 100g as well as food history (all food items eaten on a certain date). Using the navigation drawer the user can go to the Diary view which automatically opens on the current date. The date can be changed using a calendar (CalendarFragment which extends DialogFragment). Then the user can select a food item from a spinner which lists all food items currently in the database. Quantity can be entered using a number input field below. When the user presses the "save" button, their new food history is saved to the database and the app displays a toast saying "Entry saved!".
 
 
 ---------
