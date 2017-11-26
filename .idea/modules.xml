@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FoodTracker.iml" filepath="$PROJECT_DIR$/FoodTracker.iml" />
+      <module fileurl="file://C:\Users\Gabi\source\food-tracker\food-tracker-android-app\FoodTracker.iml" filepath="C:\Users\Gabi\source\food-tracker\food-tracker-android-app\FoodTracker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Gabi\source\food-tracker\food-tracker-android-app\app\app.iml" filepath="C:\Users\Gabi\source\food-tracker\food-tracker-android-app\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/food-tracker-android-app.iml" filepath="$PROJECT_DIR$/food-tracker-android-app.iml" />
     </modules>
   </component>
 </project>
